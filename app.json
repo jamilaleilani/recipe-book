@@ -4,6 +4,7 @@
    "version": "1.0.0",
    "slug": "recipe-book",
    "sdkVersion": "26.0.0",
+   "description": "app to write and save recipes",
    "ios": {
      "bundleIdentifier": "host.exp.Exponent"
    },
