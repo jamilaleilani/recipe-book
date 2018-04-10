@@ -1,0 +1,11 @@
+{
+  "expo": {
+   "name": "Recipe Book",
+   "version": "1.0.0",
+   "slug": "recipe-book",
+   "sdkVersion": "26.0.0",
+   "ios": {
+     "bundleIdentifier": "host.exp.Exponent"
+   },
+  }
+}
