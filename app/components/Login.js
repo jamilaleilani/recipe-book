@@ -15,6 +15,7 @@ export default class Login extends React.Component {
 
   Login() {
     this.props.login(this.state.email, this.state.password);
+    Actions.tabbar()
   }
 
 
@@ -29,7 +30,7 @@ export default class Login extends React.Component {
         <TextInput style={styling.input} secureTextEntry={true} autoCapitalize="none" placeholder='password' value={this.state.password}
           onChangeText={(t) => {this.setState({password: t})}}>
         </TextInput>
-        <TouchableOpacity style={ styling.button } onPress={this.Login, Actions.tabbar}><Text>Login</Text></TouchableOpacity>
+        <TouchableOpacity style={ styling.button } onPress={this.Login}><Text>Login</Text></TouchableOpacity>
       </View>
     );
   }

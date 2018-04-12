@@ -26,44 +26,53 @@ export default class App extends React.Component {
     super(props);
 
     this.database = firebase.database();
+    this.auth = firebase.auth();
+    this.user = firebase.User;
+    this.currentUser = firebase.auth().currentUser;
+
 
     this.state = {
       isloggedin: false,
       email: "",
-      password: ""
+      password: "",
+      user: ""
     }
 
     this.signOut = this.signOut.bind(this);
-    this.addRecipe = this.addRecipe.bind(this);
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
+    this.listeningForAuthChange = this.listeningForAuthChange.bind(this);
+    this.addRecipe = this.addRecipe.bind(this);
+
   }
 
-  addRecipe(recipe) {
+  addRecipe(title, ingredients, directions) {
     firebase.database().ref('recipes/').push({
-      title: recipe,
+      title: title,
+      ingredients: ingredients,
+      directions: directions
     })
   }
 
-  show() {
-    const query = firebase.database().ref("recipes").orderByKey();
-    query.once("value").then( function(snapshot) {
-       snapshot.forEach(function(childSnapshot) {
-         let key = childSnapshot.key;
-         let recipes = recipes + '<Text>' + key + '</Text>'
-     });
-     return recipes
+  listeningForAuthChange() {
+    firebase.auth().onAuthStateChanged(function(user) {
+      console.log("user is: ", user)
+        if (user) {
+          this.setState({user: user.email})
+        } else {
+          this.setState({user: "no user logged in"})
+        }
     });
   }
-
 
   login(email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
       this.state.isloggedin = true
-      alert(this.state.isloggedin);
+      console.log("current user is ", firebase.auth().currentUser)
+      Actions.tabbar
     }). catch((err) => {
       this.state.isloggedin = false
-      alert(err, this.state.isloggedin);
+      alert(err);
     });
   }
 
@@ -73,7 +82,7 @@ export default class App extends React.Component {
       alert("new user created", this.state.isloggedin);
     }). catch((err) => {
       this.state.isloggedin = false
-      alert( err, this.state.isloggedin);
+      alert( err);
     });
   }
 
@@ -85,19 +94,17 @@ export default class App extends React.Component {
   }
 
   render() {
-
     return (
       <Router>
 
         <Scene key="modal" component={Modal} >
                 <Scene key="root" hideNavBar={true}>
                     <Scene key="signup" component={Signup} title="signup" register={this.register} />
-                    <Scene key="login" component={Login} title="Login" login={this.login}/>
+                    <Scene key="login" component={Login} title="Login" login={this.login} user={this.currentUser}/>
                     <Scene key="logout" component={Logout} title="Logout" signout={this.signOut}/>
-                    <Scene key="newrecipe" component={NewRecipe} title="New Recipe" onLeft={()=>Actions.launch()} leftTitle="back" addrecipe={this.addRecipe}/>
-                    <Scene key="launch" component={Launch} title="Recipe Book" initial={true} style={{flex:1, backgroundColor:'transparent'}} register={this.register} show={this.show} db={this.database}/>
+                    <Scene key="launch" component={Launch} title="Recipe Book" initial={true} style={{flex:1, backgroundColor:'transparent'}} register={this.register}/>
                     <Scene key="tabbar" tabs={true} >
-                        <Scene key="profile" component={Profile} title="Profile" onLeft={()=>Actions.launch()} leftTitle="back" show={this.show}/>
+                        <Scene key="profile" component={Profile} title="Profile" onLeft={()=>Actions.launch()} leftTitle="back" db={this.database} user={this.currentUser}/>
                         <Scene key="newrecipe" component={NewRecipe} title="New Recipe" onLeft={()=>Actions.launch()} leftTitle="back" addrecipe={this.addRecipe}/>
                     </Scene>
                 </Scene>
