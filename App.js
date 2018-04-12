@@ -26,10 +26,6 @@ export default class App extends React.Component {
     super(props);
 
     this.database = firebase.database();
-    this.auth = firebase.auth();
-    this.user = firebase.User;
-    this.currentUser = firebase.auth().currentUser;
-
 
     this.state = {
       isloggedin: false,
@@ -46,8 +42,9 @@ export default class App extends React.Component {
 
   }
 
-  addRecipe(title, ingredients, directions) {
+  addRecipe(owner, title, ingredients, directions) {
     firebase.database().ref('recipes/').push({
+      owner: owner,
       title: title,
       ingredients: ingredients,
       directions: directions
@@ -56,7 +53,6 @@ export default class App extends React.Component {
 
   listeningForAuthChange() {
     firebase.auth().onAuthStateChanged(function(user) {
-      console.log("user is: ", user)
         if (user) {
           this.setState({user: user.email})
         } else {
@@ -68,8 +64,6 @@ export default class App extends React.Component {
   login(email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
       this.state.isloggedin = true
-      console.log("current user is ", firebase.auth().currentUser)
-      Actions.tabbar
     }). catch((err) => {
       this.state.isloggedin = false
       alert(err);
@@ -100,11 +94,11 @@ export default class App extends React.Component {
         <Scene key="modal" component={Modal} >
                 <Scene key="root" hideNavBar={true}>
                     <Scene key="signup" component={Signup} title="signup" register={this.register} />
-                    <Scene key="login" component={Login} title="Login" login={this.login} user={this.currentUser}/>
+                    <Scene key="login" component={Login} title="Login" login={this.login}/>
                     <Scene key="logout" component={Logout} title="Logout" signout={this.signOut}/>
                     <Scene key="launch" component={Launch} title="Recipe Book" initial={true} style={{flex:1, backgroundColor:'transparent'}} register={this.register}/>
                     <Scene key="tabbar" tabs={true} >
-                        <Scene key="profile" component={Profile} title="Profile" onLeft={()=>Actions.launch()} leftTitle="back" db={this.database} user={this.currentUser}/>
+                        <Scene key="profile" component={Profile} title="Profile" onLeft={()=>Actions.launch()} leftTitle="back" db={this.database} signout={this.signOut}/>
                         <Scene key="newrecipe" component={NewRecipe} title="New Recipe" onLeft={()=>Actions.launch()} leftTitle="back" addrecipe={this.addRecipe}/>
                     </Scene>
                 </Scene>

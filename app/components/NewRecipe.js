@@ -5,10 +5,11 @@ import {Actions} from 'react-native-router-flux';
 import * as firebase from 'firebase';
 
 export default class NewRecipe extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      owner: "",
+      owner: firebase.auth().currentUser.uid,
       title: "",
       ingredients: "",
       directions: ""
@@ -18,11 +19,13 @@ export default class NewRecipe extends React.Component {
 
 
   AddRecipe() {
-    this.props.addrecipe(this.state.title, this.state.ingredients, this.state.directions);
+    this.props.addrecipe(this.state.owner, this.state.title, this.state.ingredients, this.state.directions);
+    Actions.tabbar()
   }
 
   render() {
-    let owner = firebase.auth().currentUser.uid;
+    const user = firebase.auth().currentUser.uid;
+    console.log("ad recipe, User: ", user)
     return (
       <View style={styling.container}>
         <Text style={styling.heading}>Add A Recipe</Text>

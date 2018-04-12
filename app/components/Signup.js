@@ -17,6 +17,7 @@ export default class Signup extends React.Component {
 
   SignUp() {
     this.props.register(this.state.email, this.state.password);
+    Actions.tabbar()
   }
 
 
@@ -40,7 +41,7 @@ export default class Signup extends React.Component {
         value={this.state.password}
         onChangeText={(t) => {this.setState({password: t})}}>
       </TextInput>
-      <TouchableOpacity style={ styling.button } onPress={this.SignUp, Actions.tabbar}><Text>Register</Text></TouchableOpacity>
+      <TouchableOpacity style={ styling.button } onPress={this.SignUp}><Text>Register</Text></TouchableOpacity>
       </View>
     );
   }
