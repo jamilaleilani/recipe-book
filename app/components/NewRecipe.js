@@ -8,7 +8,7 @@ export default class NewRecipe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      owner: ""
+      owner: "",
       title: "",
       ingredients: "",
       directions: ""
