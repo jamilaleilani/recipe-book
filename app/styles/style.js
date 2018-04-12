@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const styling = StyleSheet.create({
   container: {
-    flex: 1,
+    paddingTop: 50,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -15,6 +15,23 @@ const styling = StyleSheet.create({
     alignItems: 'center',
     padding: 5,
     width: '100%'
+  },
+  nav: {
+    fontSize: 20,
+  },
+  bottomnav: {
+    position: 'absolute',
+    bottom: 0,
+    height: 60,
+    backgroundColor: 'pink',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    padding: 5,
+    width: '100%',
+    flexDirection: "row",
+  },
+  endnav: {
+    fontSize: 15,
   },
   button: {
     alignItems: 'center',
@@ -40,6 +57,21 @@ const styling = StyleSheet.create({
     padding: 10,
     width: 200,
     marginTop: 50
+  },
+  launch: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  launchtitle: {
+    fontSize: 40,
+  },
+  launchtextbox: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  launchtext: {
+    fontSize: 20,
   }
 })
 

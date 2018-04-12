@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import styling from '../styles/style';
+import {Actions} from 'react-native-router-flux';
 
 export default class Signup extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class Signup extends React.Component {
   render() {
     return (
       <View>
-      <Text style={styling.heading}>Register</Text>
+      <Text style={styling.heading}>Signup</Text>
       <TextInput
         style={styling.input}
         keyboardType="email-address"
@@ -39,7 +40,7 @@ export default class Signup extends React.Component {
         value={this.state.password}
         onChangeText={(t) => {this.setState({password: t})}}>
       </TextInput>
-      <TouchableOpacity style={ styling.button } onPress={this.SignUp}><Text>Register</Text></TouchableOpacity>
+      <TouchableOpacity style={ styling.button } onPress={this.SignUp, Actions.tabbar}><Text>Register</Text></TouchableOpacity>
       </View>
     );
   }
