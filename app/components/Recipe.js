@@ -19,10 +19,12 @@ export default class Recipe extends React.Component {
     let userid = firebase.auth().currentUser.uid
 
     return (
-      <View style={styling.container}>
-        <Text>Title: {recipeTitle}</Text>
-        <Text>Ingredients: {recipeIngredients}</Text>
-        <Text>Directions: {recipeDirections}</Text>
+      <View style={styling.recipe}>
+        <Text style={styling.recipetitle}>Title: <Text style={styling.recipetext}>{recipeTitle}</Text></Text>
+        <Text style={styling.recipetitle}>Ingredients:</Text>
+        <Text style={styling.recipetext}>{recipeIngredients}</Text>
+        <Text style={styling.recipetitle}>Directions:</Text>
+        <Text style={styling.recipetext}>{recipeDirections}</Text>
       </View>
     );
 

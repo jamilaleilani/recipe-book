@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, TextInput } from 'react-native';
+import { Text, View, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import styling from '../styles/style';
 import {Actions} from 'react-native-router-flux';
 import * as firebase from 'firebase';
@@ -27,21 +27,25 @@ export default class NewRecipe extends React.Component {
     const user = firebase.auth().currentUser.uid;
     console.log("ad recipe, User: ", user)
     return (
-      <View style={styling.container}>
+      <View style={styling.profileandnew}>
         <Text style={styling.heading}>Add A Recipe</Text>
-        <TextInput
-          style={styling.input} autoCapitalize="none" placeholder='title' value={this.state.title}
-          onChangeText={(t) => this.setState({title: t})}>
-        </TextInput>
-        <TextInput
-          style={styling.input} autoCapitalize="none" placeholder='ingredients' value={this.state.ingredients}
-          onChangeText={(t) => this.setState({ingredients: t})}>
-        </TextInput>
-        <TextInput
-          style={styling.input} autoCapitalize="none" placeholder='directions' value={this.state.directions}
-          onChangeText={(t) => this.setState({directions: t})}>
-        </TextInput>
-        <TouchableOpacity style={ styling.button } onPress={this.AddRecipe}><Text>Add Recipe</Text></TouchableOpacity>
+        <ScrollView>
+          <TextInput
+            style={styling.input} autoCapitalize="none" placeholder='title' value={this.state.title}
+            onChangeText={(t) => this.setState({title: t})}>
+          </TextInput>
+          <TextInput
+            multiline={true}
+            style={styling.inputlarge} autoCapitalize="none" placeholder='ingredients' value={this.state.ingredients}
+            onChangeText={(t) => this.setState({ingredients: t})}>
+          </TextInput>
+          <TextInput
+            multiline={true}
+            style={styling.inputlarge} autoCapitalize="none" placeholder='directions' value={this.state.directions}
+            onChangeText={(t) => this.setState({directions: t})}>
+          </TextInput>
+          <TouchableOpacity style={ styling.button } onPress={this.AddRecipe}><Text>Add Recipe</Text></TouchableOpacity>
+        </ScrollView>
       </View>
 
     );

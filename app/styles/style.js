@@ -34,6 +34,13 @@ const styling = StyleSheet.create({
     padding: 10,
     margin: 10
   },
+  inputlarge: {
+    backgroundColor: 'rgb(230,230,230)',
+    width: 300,
+    height: 180,
+    padding: 10,
+    margin: 10
+  },
   heading: {
     fontSize: 40,
     textAlign: 'center',
@@ -74,6 +81,34 @@ const styling = StyleSheet.create({
   navbutton: {
     fontFamily: 'Avenir',
     color: 'black',
+  },
+  profileandnew: {
+    flex: 1,
+    paddingTop: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  recipe: {
+    width: 400,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    padding: 10,
+  },
+  recipetitle: {
+    textAlign: 'left',
+    padding: 5,
+    fontSize: 18,
+    fontWeight: '700',
+    width: 250,
+  },
+  recipetext: {
+    textAlign: 'left',
+    padding: 5,
+    fontSize: 16,
+    width: 250,
+    fontWeight: '400',
   }
 })
 

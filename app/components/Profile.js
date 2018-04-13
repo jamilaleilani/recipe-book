@@ -32,8 +32,8 @@ export default class Profile extends React.Component {
 
   render() {
     return (
-      <View style={styling.container}>
-        <Text>My Recipes</Text>
+      <View style={styling.profileandnew}>
+        <Text style={styling.heading}>My Recipes</Text>
         <ScrollView>
           {this.state.recipes.map(recipe =>
             <Recipe recipe={recipe}/>
