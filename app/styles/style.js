@@ -109,6 +109,11 @@ const styling = StyleSheet.create({
     fontSize: 16,
     width: 250,
     fontWeight: '400',
+  },
+  pagetitle: {
+    fontFamily: 'Avenir',
+    color: 'rgb(119,77,117)',
+    fontWeight: '600',
   }
 })
 
