@@ -25,7 +25,6 @@ export default class NewRecipe extends React.Component {
 
   render() {
     const user = firebase.auth().currentUser.uid;
-    console.log("ad recipe, User: ", user)
     return (
       <View style={styling.profileandnew}>
         <Text style={styling.heading}>Add A Recipe</Text>

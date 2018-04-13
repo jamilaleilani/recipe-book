@@ -62,6 +62,7 @@ export default class App extends React.Component {
 
   login(email, password) {
     firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+      Actions.tabbar()
       this.state.isloggedin = true
     }). catch((err) => {
       this.state.isloggedin = false
@@ -71,8 +72,8 @@ export default class App extends React.Component {
 
   register(email, password) {
     firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+      Actions.tabbar()
       this.state.isloggedin = true
-      alert("new user created", this.state.isloggedin);
     }). catch((err) => {
       this.state.isloggedin = false
       alert(err);
@@ -81,6 +82,7 @@ export default class App extends React.Component {
 
   signOut() {
     firebase.auth().signOut().then(res => {
+      Actions.launch();
       this.state.isloggedin = false
       alert('You have signed out')
     }).catch(err => alert(err))
@@ -90,12 +92,12 @@ export default class App extends React.Component {
     return (
       <Router>
         <Scene key="root" hideNavBar={true}>
-            <Scene key="signup" component={Signup} title="signup" register={this.register} />
+            <Scene key="signup" component={Signup} title="signup" register={this.register}/>
             <Scene key="login" component={Login} title="Login" login={this.login}/>
-            <Scene key="launch" component={Launch} title="Recipe Book" initial={true} style={{flex:1, backgroundColor:'transparent'}} register={this.register}/>
+            <Scene key="launch" component={Launch} title="Recipe Book" initial={true} register={this.register}/>
             <Scene key="tabbar" tabBarTextFontSize={50} tabs={true} tabBarStyle={{paddingBottom: 15}}>
-                <Scene key="profile" component={Profile} title="Profile" navigationBarStyle={{backgroundColor:'white'}} titleStyle={styling.pagetitle} onLeft={()=>Actions.launch()} leftTitle="back" onRight={()=> {this.signOut(); Actions.launch()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} db={this.database}/>
-                <Scene key="newrecipe" component={NewRecipe} title="New Recipe" navigationBarStyle={{backgroundColor:'white'}} titleStyle={styling.pagetitle} onLeft={()=>Actions.launch()} leftTitle="back" onRight={()=> {this.signOut(); Actions.launch()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} addrecipe={this.addRecipe}/>
+                <Scene key="profile" component={Profile} title="Profile" navigationBarStyle={{backgroundColor:'white'}} titleStyle={styling.pagetitle} onRight={()=> {this.signOut()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} db={this.database}/>
+                <Scene key="newrecipe" component={NewRecipe} title="New Recipe" navigationBarStyle={{backgroundColor:'white'}} titleStyle={styling.pagetitle} onRight={()=> {this.signOut()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} addrecipe={this.addRecipe}/>
             </Scene>
         </Scene>
       </Router>

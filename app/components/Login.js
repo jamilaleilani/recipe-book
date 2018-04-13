@@ -15,7 +15,6 @@ export default class Login extends React.Component {
 
   Login() {
     this.props.login(this.state.email, this.state.password);
-    Actions.tabbar()
   }
 
 

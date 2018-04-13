@@ -17,7 +17,6 @@ export default class Signup extends React.Component {
 
   SignUp() {
     this.props.register(this.state.email, this.state.password);
-    Actions.tabbar()
   }
 
 
