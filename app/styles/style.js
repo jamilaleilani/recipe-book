@@ -45,7 +45,7 @@ const styling = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0)',
+    backgroundColor: 'rgb(119,77,117)',
   },
   launchtitle: {
     fontSize: 40,

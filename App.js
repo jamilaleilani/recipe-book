@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Scene, TabBar, Modal, Actions, ActionConst } from 'react-native-router-flux';
+import { Router, Scene, TabBar, Modal, Actions, ActionConst, icon } from 'react-native-router-flux';
 import { Button, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import styling from './app/styles/style'
 import Launch from './app/components/Launch'
@@ -94,7 +94,7 @@ export default class App extends React.Component {
             <Scene key="signup" component={Signup} title="signup" register={this.register} />
             <Scene key="login" component={Login} title="Login" login={this.login}/>
             <Scene key="launch" component={Launch} title="Recipe Book" initial={true} style={{flex:1, backgroundColor:'transparent'}} register={this.register}/>
-            <Scene key="tabbar" tabs={true} tabBarStyle={{backgroundColor: 'rgb(119,77,117)', paddingBottom: 15, tabBarTextFontSize: 50, tabBarLabelColor: 'pink'}}>
+            <Scene icon={TabIcon} key="tabbar"  tabBarTextFontSize={50} tabs={true} tabBarStyle={{paddingBottom: 15}}>
                 <Scene key="profile" component={Profile} title="Profile" navigationBarStyle={{backgroundColor:'white'}} titleStyle={{fontFamily: 'Avenir', color: 'rgb(119,77,117)', fontWeight: '600'}} onLeft={()=>Actions.launch()} leftTitle="back" onRight={()=> {this.signOut(); Actions.launch()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} db={this.database}/>
                 <Scene key="newrecipe" component={NewRecipe} title="New Recipe" navigationBarStyle={{backgroundColor:'white'}} titleStyle={{fontFamily: 'Avenir', color: 'rgb(119,77,117)', fontWeight: '600'}} onLeft={()=>Actions.launch()} leftTitle="back" onRight={()=> {this.signOut(); Actions.launch()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} addrecipe={this.addRecipe}/>
             </Scene>
