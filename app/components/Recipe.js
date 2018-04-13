@@ -13,11 +13,11 @@ export default class Recipe extends React.Component {
   render() {
     let recipeOwner = this.props.recipe.child("owner").val()
     let recipeTitle = this.props.recipe.child("title").val()
-    let recipeIngredients = this.props.recipe.child("title").val()
-    let recipeDirections = this.props.recipe.child("title").val()
+    let recipeIngredients = this.props.recipe.child("ingredients").val()
+    let recipeDirections = this.props.recipe.child("directions").val()
 
     let userid = firebase.auth().currentUser.uid
-    
+
     return (
       <View style={styling.container}>
         <Text>Title: {recipeTitle}</Text>

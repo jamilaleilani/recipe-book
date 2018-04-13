@@ -5,9 +5,9 @@ import styling from './app/styles/style'
 import Launch from './app/components/Launch'
 import Profile from './app/components/Profile'
 import NewRecipe from './app/components/NewRecipe'
-import Logout from './app/components/Logout'
 import Signup from './app/components/Signup'
 import Login from './app/components/Login'
+import TabIcon from './app/components/TabIcon'
 import * as firebase from 'firebase';
 
 const config = {
@@ -76,34 +76,29 @@ export default class App extends React.Component {
       alert("new user created", this.state.isloggedin);
     }). catch((err) => {
       this.state.isloggedin = false
-      alert( err);
+      alert(err);
     });
   }
 
   signOut() {
     firebase.auth().signOut().then(res => {
       this.state.isloggedin = false
-      alert('You have signed out', this.state.isloggedin)
-    }).catch(err => alert(err, this.state.isloggedin))
+      alert('You have signed out')
+    }).catch(err => alert(err))
   }
 
   render() {
     return (
       <Router>
-
-        <Scene key="modal" component={Modal} >
-                <Scene key="root" hideNavBar={true}>
-                    <Scene key="signup" component={Signup} title="signup" register={this.register} />
-                    <Scene key="login" component={Login} title="Login" login={this.login}/>
-                    <Scene key="logout" component={Logout} title="Logout" signout={this.signOut}/>
-                    <Scene key="launch" component={Launch} title="Recipe Book" initial={true} style={{flex:1, backgroundColor:'transparent'}} register={this.register}/>
-                    <Scene key="tabbar" tabs={true} >
-                        <Scene key="profile" component={Profile} title="Profile" onLeft={()=>Actions.launch()} leftTitle="back" db={this.database} signout={this.signOut}/>
-                        <Scene key="newrecipe" component={NewRecipe} title="New Recipe" onLeft={()=>Actions.launch()} leftTitle="back" addrecipe={this.addRecipe}/>
-                    </Scene>
-                </Scene>
-                <Scene key="profile" component={Profile}/>
+        <Scene key="root" hideNavBar={true}>
+            <Scene key="signup" component={Signup} title="signup" register={this.register} />
+            <Scene key="login" component={Login} title="Login" login={this.login}/>
+            <Scene key="launch" component={Launch} title="Recipe Book" initial={true} style={{flex:1, backgroundColor:'transparent'}} register={this.register}/>
+            <Scene key="tabbar" tabs={true} tabBarStyle={{backgroundColor: 'rgb(119,77,117)', paddingBottom: 15, tabBarTextFontSize: 50, tabBarLabelColor: 'pink'}}>
+                <Scene key="profile" component={Profile} title="Profile" navigationBarStyle={{backgroundColor:'white'}} titleStyle={{fontFamily: 'Avenir', color: 'rgb(119,77,117)', fontWeight: '600'}} onLeft={()=>Actions.launch()} leftTitle="back" onRight={()=> {this.signOut(); Actions.launch()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} db={this.database}/>
+                <Scene key="newrecipe" component={NewRecipe} title="New Recipe" navigationBarStyle={{backgroundColor:'white'}} titleStyle={{fontFamily: 'Avenir', color: 'rgb(119,77,117)', fontWeight: '600'}} onLeft={()=>Actions.launch()} leftTitle="back" onRight={()=> {this.signOut(); Actions.launch()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} addrecipe={this.addRecipe}/>
             </Scene>
+        </Scene>
       </Router>
     );
   }

@@ -24,7 +24,6 @@ export default class Signup extends React.Component {
   render() {
     return (
       <View>
-      <Text style={styling.heading}>Signup</Text>
       <TextInput
         style={styling.input}
         keyboardType="email-address"
@@ -41,7 +40,7 @@ export default class Signup extends React.Component {
         value={this.state.password}
         onChangeText={(t) => {this.setState({password: t})}}>
       </TextInput>
-      <TouchableOpacity style={ styling.button } onPress={this.SignUp}><Text>Register</Text></TouchableOpacity>
+      <TouchableOpacity style={ styling.button } onPress={this.SignUp}><Text style={styling.buttontext}>Signup for Recipe Book</Text></TouchableOpacity>
       </View>
     );
   }

@@ -3,7 +3,6 @@ import { Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import styling from '../styles/style';
 import {Actions} from 'react-native-router-flux'
 import Recipe from './Recipe'
-import Logout from './Logout'
 import * as firebase from 'firebase';
 
 
@@ -14,14 +13,7 @@ export default class Profile extends React.Component {
       this.state = {
         recipes: []
       }
-
-      this.Signout = this.Signout.bind(this);
     }
-
-  Signout() {
-    this.props.signout()
-    Actions.launch()
-  }
 
   componentDidMount() {
     const query = this.props.db.ref("recipes").orderByKey();
@@ -41,7 +33,6 @@ export default class Profile extends React.Component {
   render() {
     return (
       <View style={styling.container}>
-        <Text onPress={this.Signout}>logout</Text>
         <Text>My Recipes</Text>
         <ScrollView>
           {this.state.recipes.map(recipe =>
