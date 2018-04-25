@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Scene, TabBar, Modal, Actions, ActionConst, icon } from 'react-native-router-flux';
+import { Router, Scene, Actions, Tabs } from 'react-native-router-flux';
 import { Button, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import styling from './app/styles/style'
 import Launch from './app/components/Launch'
@@ -7,6 +7,7 @@ import Profile from './app/components/Profile'
 import NewRecipe from './app/components/NewRecipe'
 import Signup from './app/components/Signup'
 import Login from './app/components/Login'
+import RecipePage from './app/components/RecipePage'
 import * as firebase from 'firebase';
 
 const config = {
@@ -19,6 +20,12 @@ const config = {
 };
 
 firebase.initializeApp(config);
+
+const TabIcon = ({ title }) => {
+  return (
+    <Text style={{fontSize: 16, height: 40, width: 120, textAlign: 'center', fontWeight: '700', paddingTop: 10}}>{title}</Text>
+  );
+}
 
 export default class App extends React.Component {
   constructor(props) {
@@ -38,7 +45,6 @@ export default class App extends React.Component {
     this.login = this.login.bind(this);
     this.listeningForAuthChange = this.listeningForAuthChange.bind(this);
     this.addRecipe = this.addRecipe.bind(this);
-
   }
 
   addRecipe(owner, title, ingredients, directions) {
@@ -92,13 +98,15 @@ export default class App extends React.Component {
     return (
       <Router>
         <Scene key="root" hideNavBar={true}>
-            <Scene key="signup" component={Signup} title="signup" register={this.register}/>
-            <Scene key="login" component={Login} title="Login" login={this.login}/>
-            <Scene key="launch" component={Launch} title="Recipe Book" initial={true} register={this.register}/>
-            <Scene key="tabbar" tabBarTextFontSize={50} tabs={true} tabBarStyle={{paddingBottom: 15}}>
-                <Scene key="profile" component={Profile} title="Profile" navigationBarStyle={{backgroundColor:'white'}} titleStyle={styling.pagetitle} onRight={()=> {this.signOut()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} db={this.database}/>
-                <Scene key="newrecipe" component={NewRecipe} title="New Recipe" navigationBarStyle={{backgroundColor:'white'}} titleStyle={styling.pagetitle} onRight={()=> {this.signOut()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} addrecipe={this.addRecipe}/>
-            </Scene>
+          <Scene key="launch" component={Launch} title="Recipe Book" initial={true} register={this.register}/>
+          <Scene key="login" component={Login} title="Login" login={this.login}/>
+          <Tabs key="tabbar" activeBackgroundColor="rgb(119,77,117)" navigationBarStyle={{backgroundColor:'white'}} titleStyle={styling.pagetitle} showLabel={false}>
+              <Scene icon={TabIcon} key="main" title="Profile" onRight={()=> {this.signOut()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} db={this.database}>
+                <Scene key="profile" component={Profile} title="Profile" />
+                <Scene key="recipepage" component={RecipePage} title="Recipe" prop="this is my prop"/>
+              </Scene>
+              <Scene icon={TabIcon} key="newrecipe" component={NewRecipe} title="New Recipe" onRight={()=> {this.signOut()}} rightTitle="logout" rightButtonTextStyle={styling.navbutton} leftButtonTextStyle={styling.navbutton} addrecipe={this.addRecipe}/>
+          </Tabs>
         </Scene>
       </Router>
     );
